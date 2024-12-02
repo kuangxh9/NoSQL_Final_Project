@@ -1,0 +1,35 @@
+version: '1.0'
+
+services:
+    mongodb:
+        image: mongo:latest
+        container_name: final_proj
+        ports:
+          - "27017:27017"
+        volumes:
+          - "C:/Users/alan_/Desktop/DS5760/final_project:/usr/ds5760"
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: password
+        networks:
+            - app-network
+            
+    python-app:
+        image: python:3.9-slim
+        container_name: slim-python
+        depends_on:
+            - mongodb
+        ports:
+            - "5000:5000"
+        volumes:
+            - "C:/Users/alan_/Desktop/DS5760/final_project:/usr/ds5760"
+        working_dir: /usr/ds5760/
+        networks:
+            - app-network
+        command: >
+            sh -c "pip install flask pymongo pandas && tail -f /dev/null"
+
+
+networks:
+    app-network:
+        driver: bridge

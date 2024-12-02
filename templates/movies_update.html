@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Update Movie Information">
+        <meta name="author" content="Xiaohan Kuang">
+        <title>Update Movie</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <style>
+            html, body {
+            height: 100%;
+            }
+
+            body {
+            display: flex;
+            flex-direction: column;
+            }
+
+            main {
+            flex: 1;
+            }
+
+            footer {
+            text-align: center;
+            }
+
+            .form-label {
+            margin-bottom: 4px;
+            }
+
+            .form-control, .form-select {
+            padding: 5px;
+            /* font-size: 14px; */
+            }
+
+            .btn {
+            padding: 6px 12px;
+            }
+        </style>
+    </head>
+
+    <header>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container">
+            <a href="/" class="navbar-brand d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                <strong>Movie Database</strong>
+            </a>
+            <nav class="d-flex">
+                <a href="/movies_overview" class="nav-link text-white mx-2">Movies</a>
+                <a href="/movies_cast" class="nav-link text-white mx-2">Cast</a>
+                <a href="/movies_update" class="nav-link text-white mx-2 fw-bold text-warning">Update</a>
+                <a href="/movies_insert" class="nav-link text-white mx-2">Insert</a>
+                <a href="/movies_delete" class="nav-link text-white mx-2">Delete</a>
+            </nav>
+            </div>
+        </div>
+    </header>
+
+    <body style="background-image: url('/static/media/main_bg.jpg'); background-size: cover; background-position: center">
+
+    <main class="container py-4 bg-light">
+        <h1 class="text-center fw-bold mb-3">Update Movie</h1>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="container mb-3">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} text-center py-2" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <form method="GET" action="/movies_update" class="mb-3">
+        <div class="row g-2">
+            <div class="col-md-8 offset-md-2">
+            <label for="title" class="form-label">Search Movie by Title</label>
+            <input type="text" id="title" name="title" class="form-control" placeholder="Enter movie title" value="{{ title }}">
+            </div>
+        </div>
+        <div class="row mt-2 text-center">
+            <div class="col-md-4 offset-md-4" style="margin-top: 10px;">
+            <button type="submit" class="btn btn-primary w-100">Search</button>
+            </div>
+        </div>
+        </form>
+
+        {% if movie %}
+        <form method="POST" action="/movies_update" style="margin-left: 20px; margin-right: 20px">
+        <input type="hidden" name="original_title" value="{{ movie.title }}">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" id="title" name="title" class="form-control" value="{{ movie.title }}">
+            </div>
+            
+            <!-- col-md-4 is too wide, might change later -->
+            <div class="col-md-2"> 
+                <label for="year" class="form-label">Year</label>
+                <input type="number" id="year" name="year" class="form-control" value="{{ movie.year }}">
+            </div>
+
+            <div class="col-md-2">
+                <label for="certificate" class="form-label">Certificate</label>
+                <input type="text" id="certificate" name="certificate" class="form-control" value="{{ movie.certificate }}">
+            </div>
+
+            <div class="col-md-2">
+                <label for="runtime" class="form-label">Runtime (min)</label>
+                <input type="number" id="runtime" name="runtime" class="form-control" value="{{ movie['runtime (min)'] }}">
+            </div>
+
+            <div class="col-md-2">
+                <label for="rating" class="form-label">Rating</label>
+                <input type="number" step="0.1" id="rating" name="rating" class="form-control" value="{{ movie.rating }}">
+            </div>
+
+            <div class="col-md-2">
+                <label for="metascore" class="form-label">Metascore</label>
+                <input type="number" id="metascore" name="metascore" class="form-control" value="{{ movie.metascore }}">
+            </div>
+
+            <div class="col-md-2">
+                <label for="votes" class="form-label">Votes</label>
+                <input type="number" id="votes" name="votes" class="form-control" value="{{ movie.votes }}">
+            </div>
+
+            <div class="col-md-2">
+                <label for="gross_collection" class="form-label">Gross Collection (M)</label>
+                <input type="number" step="0.01" id="gross_collection" name="gross_collection" class="form-control" value="{{ movie['gross_collection (M)'] }}">
+            </div>
+
+            <div class="col-md-4">
+                <label for="genre" class="form-label">Genre (Seperated by ', ')</label>
+                <input type="text" id="genre" name="genre" class="form-control" placeholder="Comma-separated" value="{{ movie.genre | join(', ') }}">
+            </div>
+
+            <div class="col-md-4">
+                <label for="director" class="form-label">Director</label>
+                <input type="text" id="director" name="director" class="form-control" value="{{ movie.director }}">
+            </div>
+
+            <div class="col-12">
+                <label for="actors" class="form-label">Actors (Seperated by ', ')</label>
+                <input type="text" id="actors" name="actors" class="form-control" placeholder="Comma-separated" value="{{ movie.actors | join(', ') }}">
+            </div>
+
+            <div class="col-12">
+                <label for="details" class="form-label">Details</label>
+                <textarea id="details" name="details" class="form-control" rows="3">{{ movie.details }}</textarea>
+            </div>
+        </div>
+        <div class="row mt-3 text-center">
+            <div class="col-md-4 offset-md-4">
+            <button type="submit" class="btn btn-success w-100">Update Movie</button>
+            </div>
+        </div>
+        </form>
+        {% endif %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

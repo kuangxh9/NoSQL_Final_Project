@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Movies Overview">
+        <meta name="author" content="Xiaohan Kuang">
+        <title>Movies Overview</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <style>
+            html, body {
+                height: 100%;
+            }
+
+            body {
+                display: flex;
+                flex-direction: column;
+            }
+
+            main {
+                flex: 1;
+            }
+
+            footer {
+                text-align: center;
+            }
+
+            .custom-btn {
+                border: 2px solid black;
+                color: black;
+                font-weight: bold;  
+                transition: all 0.3s ease;
+            }
+
+            .custom-btn:hover {
+                background-color: black;
+                color: white;          
+            }
+        </style>
+    </head>
+
+    <header>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container">
+        <a href="/" class="navbar-brand d-flex align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <strong>Movie Database</strong>
+        </a>
+        <nav class="d-flex">
+            <a href="/movies_overview" class="nav-link text-white mx-2 fw-bold">Movies</a>
+            <a href="/movies_cast" class="nav-link text-white mx-2">Cast</a>
+            <a href="/movies_update" class="nav-link text-white mx-2">Update</a>
+            <a href="/movies_insert" class="nav-link text-white mx-2">Insert</a>
+            <a href="/movies_delete" class="nav-link text-white mx-2">Delete</a>
+        </nav>
+        </div>
+    </div>
+    </header>
+
+<body style="background-image: url('/static/media/main_bg.jpg'); background-size: no-repeat; background-position: center">
+    
+    <main class="container py-5 bg-light">
+        <h1 class="fw-bold mb-2 text-center" style="margin-top: -25px;">Movies</h1>
+        <p class="lead text-muted mb-4 text-center">Explore and filter top 1000 movies from the database using the options below.</p>
+    
+        <form method="GET" action="/movies_overview" class="row g-3">
+            <div class="col-md-2 ">
+                <label class="form-label fw-bold text-center d-block">Select Genres:</label>
+                <div class="border p-3" style="height: 300px; overflow-y: scroll;">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="Action" id="genreAction">
+                        <label class="form-check-label" for="genreAction">Action</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="Adventure" id="genreAdventure">
+                        <label class="form-check-label" for="genreAdventure">Adventure</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="Animation" id="genreAnimation">
+                        <label class="form-check-label" for="genreAnimation">Animation</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="Biography" id="genreBiography">
+                        <label class="form-check-label" for="genreBiography">Biography</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="Comedy" id="genreComedy">
+                        <label class="form-check-label" for="genreComedy">Comedy</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="Crime" id="genreCrime">
+                        <label class="form-check-label" for="genreCrime">Crime</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="Drama" id="genreDrama">
+                        <label class="form-check-label" for="genreDrama">Drama</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="Family" id="genreFamily">
+                        <label class="form-check-label" for="genreFamily">Family</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="Fantasy" id="genreFantasy">
+                        <label class="form-check-label" for="genreFantasy">Fantasy</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="Film-Noir" id="genreFilmNoir">
+                        <label class="form-check-label" for="genreFilmNoir">Film-Noir</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="History" id="genreHistory">
+                        <label class="form-check-label" for="genreHistory">History</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="Horror" id="genreHorror">
+                        <label class="form-check-label" for="genreHorror">Horror</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="Music" id="genreMusic">
+                        <label class="form-check-label" for="genreMusic">Music</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="Musical" id="genreMusical">
+                        <label class="form-check-label" for="genreMusical">Musical</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="Mystery" id="genreMystery">
+                        <label class="form-check-label" for="genreMystery">Mystery</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="Romance" id="genreRomance">
+                        <label class="form-check-label" for="genreRomance">Romance</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="Sci-Fi" id="genreSciFi">
+                        <label class="form-check-label" for="genreSciFi">Sci-Fi</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="Sport" id="genreSport">
+                        <label class="form-check-label" for="genreSport">Sport</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="Thriller" id="genreThriller">
+                        <label class="form-check-label" for="genreThriller">Thriller</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="War" id="genreWar">
+                        <label class="form-check-label" for="genreWar">War</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genre" value="Western" id="genreWestern">
+                        <label class="form-check-label" for="genreWestern">Western</label>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col-md-10">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <input type="text" name="title" class="form-control" placeholder="Search by title">
+                    </div>
+    
+                    <div class="col-md-3">
+                        <input type="number" name="year_min" class="form-control" placeholder="Year (Min)">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" name="year_max" class="form-control" placeholder="Year (Max)">
+                    </div>
+    
+                    <div class="col-md-3">
+                        <input type="number" step="0.1" name="rating_min" class="form-control" placeholder="Rating (Min)">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" step="0.1" name="rating_max" class="form-control" placeholder="Rating (Max)">
+                    </div>
+    
+                    <div class="col-md-3">
+                        <select name="sort_by" class="form-select">
+                            <option value="">Sort by</option>
+                            <option value="year">Year</option>
+                            <option value="rating">Rating</option>
+                            <option value="metascore">Metascore</option>
+                            <option value="votes">Votes</option>
+                        </select>
+                    </div>
+    
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+                    </div>
+                </div>
+    
+                <div class="table-responsive mt-3" style="height: 450px; overflow-y: scroll;">
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Title</th>
+                                <th>Year</th>
+                                <th>Genre</th>
+                                <th>Rating</th>
+                                <th>Metascore</th>
+                                <th>Vote</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for movie in movies %}
+                            <tr>
+                                <td>{{ movie.title }}</td>
+                                <td>{{ movie.year }}</td>
+                                <td>{{ movie.genre }}</td>
+                                <td>{{ movie.rating }}</td>
+                                <td>{{ movie.metascore if movie.metascore != -1 else 'N/A' }}</td>
+                                <td>{{ movie.votes }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    
+                </div>
+                <p style="margin-top: 15px; margin-bottom: -50px;"><strong> Total Matches: {{ total_count }} </strong></p>
+         
+            </div>
+
+
+        </form>
+    </main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+</body>
+</html>
